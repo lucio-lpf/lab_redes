@@ -10,9 +10,15 @@ send = ['a']*64000
 size = sys.getsizeof(','.join(send))
 valued_readed = 0
 
+if len(sys.argv) is not 2:
+    print("Chamamento errado. Por favor, utilize o modelo:\n python server.py porta_servidor")
+    exit()
+
+PORT = int(sys.argv[1])
 
 def print_result_thread():
-    with open('measure.csv','w') as csv_file:
+    file_name = 'mesure_'+ str(PORT) + '.csv'
+    with open(file_name,'w') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         old_value = 0
         time = 0
@@ -26,11 +32,6 @@ def print_result_thread():
             sleep(1)
             time += 1
 
-if len(sys.argv) is not 2:
-    print("Chamamento errado. Por favor, utilize o modelo:\n python server.py porta_servidor")
-    exit()
-
-PORT = int(sys.argv[1])
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 orig = (HOST, PORT)
