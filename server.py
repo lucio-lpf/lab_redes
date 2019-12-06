@@ -1,7 +1,7 @@
 import socket
 import thread
 import csv
-from time import sleep
+from time import sleep, time
 import sys
 
 
@@ -21,16 +21,14 @@ def print_result_thread():
     with open(file_name,'w') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         old_value = 0
-        time = 0
         while True:
             value = valued_readed
             row = [0,0]
-            row[0] = time
+            row[0] = int(time())
             row[1] = value - old_value
             old_value = value
             writer.writerow(row)
             sleep(1)
-            time += 1
 
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
